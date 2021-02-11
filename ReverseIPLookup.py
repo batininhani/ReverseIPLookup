@@ -183,7 +183,7 @@ displayMessage("\r{}Found {} sites hosted on given server\n".format(
 
 if(len(hosts) >= 1):
 
-    file_name = (os.path.dirname(__file__) + remoteAddr + "_output.txt")
+    file_name = (os.path.dirname(__file__) + '\\' + remoteAddr + "_output.txt")
     file_object = open(file_name, "w+")
     for i in hosts:
         file_object.write(i + "\n")
