@@ -106,6 +106,7 @@ def search(remoteAddr):
     while(q):
 
         try:
+
             address = (
                 f"https://www.bing.com/search?q=ip:\"{remoteAddr}\"&first={first}1")
             custom_user_agent = "Mozilla/5.0 (Linux; Android 4.4; Nexus 7 Build/KRT16M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.92 Safari/537.36"
@@ -114,9 +115,8 @@ def search(remoteAddr):
             page = urlopen(getRequest)
             soup = BeautifulSoup(page.read(), "lxml")
             links = soup.find_all("a", href=True)
-            for link in links:
-                if(int(soup.select("#b_results > li.b_pag > div > nav > div.sb_center > ul > li > a.sb_pagS.sb_pagS_bp.sb_bp")[0].text) == (first + 1)):
-                    pass
+            if(int(soup.select("#b_results > li.b_pag > div > nav > div.sb_center > ul > li > a.sb_pagS.sb_pagS_bp.sb_bp")[0].text) == (first + 1)):
+                for link in links:
                     if(validate_url(link["href"])):
 
                         domain = urlparse(link["href"])
@@ -130,12 +130,11 @@ def search(remoteAddr):
                             print(bcolors.ok("[+]") + domain)
                             time.sleep(0.3)
 
-                else:
-                    q = False
-
-            first += 1
+                first += 1
+            else:
+                q = False
         except KeyboardInterrupt:
-            print("{}Found {} sites hosted on a given server".format(
+            print("{}Found {} sites hosted on given server".format(
                 bcolors.okblue("[i]"), len(hosts)))
         except IndexError:
             continue
@@ -175,11 +174,11 @@ except socket.herror:
 # connecting to the server
 s.connect((host_ip, port))
 displayMessage("\rResolve Host: %s" % host[0])
-print('\n')
+print("\n")
 s.close()
 search(host_ip)
 
-displayMessage("\r{}Found {} sites hosted on a given server\n".format(
+displayMessage("\r{}Found {} sites hosted on given server\n".format(
     bcolors.okblue("[i]"), len(hosts)))
 
 if(len(hosts) >= 1):
