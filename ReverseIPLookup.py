@@ -131,10 +131,7 @@ def search(remoteAddr):
                             time.sleep(0.3)
 
                 else:
-                    while(q == True):
-                        displayMessage("\r{}Found {} sites hosted on a given server\n".format(
-                            bcolors.okblue("[i]"), len(hosts)))
-                        q = False
+                    q = False
 
             first += 1
         except KeyboardInterrupt:
@@ -181,6 +178,9 @@ displayMessage("\rResolve Host: %s" % host[0])
 print('\n')
 s.close()
 search(host_ip)
+
+displayMessage("\r{}Found {} sites hosted on a given server\n".format(
+    bcolors.okblue("[i]"), len(hosts)))
 
 if(len(hosts) >= 1):
 
