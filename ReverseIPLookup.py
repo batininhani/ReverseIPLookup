@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 import string
 import pyfiglet
 import socket
-import sys
+import os, sys
 import re
 import time
 
@@ -183,11 +183,12 @@ displayMessage("\r{}Found {} sites hosted on given server\n".format(
 
 if(len(hosts) >= 1):
 
-    file_name = remoteAddr + "_output.txt"
+    file_name = (os.path.dirname(__file__) + remoteAddr + "_output.txt")
     file_object = open(file_name, "w+")
     for i in hosts:
-        file_object.write(i + '\n')
+        file_object.write(i + "\n")
     displayMessage("\r%sOutput has been successfully written to %s!" %
                    (bcolors.okblue("[i]"), file_name))
-    print('\n')
+    print("\n")
     file_object.close()
+
